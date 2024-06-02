@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Web Sockets</title>
+  </head>
+  <body>
+    <h1>Web Socket Client</h1>
+
+    <input type="text" class="messageInput" />
+    <button class="sendButton">Send Message</button>
+
+    <div class="messagesContainer"></div>
+
+    <script src="https://cdn.socket.io/4.7.5/socket.io.min.js"></script>
+
+    <script>
+      const socket = io();
+      const messageInput = document.querySelector(".messageInput");
+      const sendButton = document.querySelector(".sendButton");
+      const messagesContainer = document.querySelector(".messagesContainer");
+
+      socket.on("message", (data) => {
+        console.log(data);
+        const ihtml = `<p>${data}</p>`;
+        messagesContainer.innerHTML += ihtml;
+      });
+
+      sendButton.addEventListener("click", () => {
+        const message = messageInput.value;
+        socket.emit("message", message);
+        messageInput.value = "";
+      });
+    </script>
+  </body>
+</html>

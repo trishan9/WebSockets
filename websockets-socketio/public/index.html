@@ -22,7 +22,6 @@
       const messagesContainer = document.querySelector(".messagesContainer");
 
       socket.on("message", (data) => {
-        console.log(data);
         const ihtml = `<p>${data}</p>`;
         messagesContainer.innerHTML += ihtml;
       });
